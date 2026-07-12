@@ -11,3 +11,4 @@ export * from './services/tripService';
 export * from './services/maintenanceService';
 export * from './services/fuelService';
 export * from './services/expenseService';
+export * from './services/reportsService';
