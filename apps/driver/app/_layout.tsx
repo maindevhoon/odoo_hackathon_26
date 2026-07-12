@@ -1,15 +1,10 @@
 import { Stack } from 'expo-router';
+import { AuthProvider } from '../src/contexts/AuthContext';
 
 export default function RootLayout() {
   return (
-    <Stack
-      screenOptions={{
-        headerStyle: { backgroundColor: '#1e3a8a' },
-        headerTintColor: '#ffffff',
-        headerTitleStyle: { fontWeight: '700' },
-      }}
-    >
-      <Stack.Screen name="index" options={{ title: 'TransitOps Driver', headerShown: false }} />
-    </Stack>
+    <AuthProvider>
+      <Stack screenOptions={{ headerShown: false }} />
+    </AuthProvider>
   );
 }
