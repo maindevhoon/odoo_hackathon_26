@@ -1,0 +1,14 @@
+{
+  "name": "transitops",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev:admin": "pnpm --filter admin dev",
+    "dev:driver": "pnpm --filter driver start",
+    "type-check": "pnpm --filter @transitops/shared build && pnpm --filter admin tsc --noEmit",
+    "build:admin": "pnpm --filter admin build"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  }
+}

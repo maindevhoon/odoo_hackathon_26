@@ -1,3 +1,23 @@
-.DS_Store
+# Node
 node_modules/
-AGENTS.md
+dist/
+build/
+.cache/
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Expo / RN
+.expo/
+.expo-shared/
+apps/driver/.expo/
+
+# Supabase
+supabase/.branches/
+supabase/.temp/
+
+# OS
+.DS_Store
+*.log
