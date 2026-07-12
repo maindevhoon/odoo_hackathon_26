@@ -79,17 +79,17 @@ export default function CostsPage() {
       {/* Summary cards */}
       <div className="grid grid-cols-3 gap-4 mb-6">
         <div className="rounded-2xl border bg-blue-50 border-blue-100 p-4">
-          <p className="text-2xl font-bold text-blue-700">₱{totalFuel.toLocaleString()}</p>
+          <p className="text-2xl font-bold text-blue-700">₹{totalFuel.toLocaleString()}</p>
           <p className="text-xs font-medium text-blue-600/70 mt-0.5">Total Fuel Cost</p>
           <p className="text-xs text-blue-500 mt-1">{fuelLogs.length} log{fuelLogs.length !== 1 ? 's' : ''}</p>
         </div>
         <div className="rounded-2xl border bg-amber-50 border-amber-100 p-4">
-          <p className="text-2xl font-bold text-amber-700">₱{totalExpense.toLocaleString()}</p>
+          <p className="text-2xl font-bold text-amber-700">₹{totalExpense.toLocaleString()}</p>
           <p className="text-xs font-medium text-amber-600/70 mt-0.5">Total Expenses</p>
           <p className="text-xs text-amber-500 mt-1">{expenses.length} record{expenses.length !== 1 ? 's' : ''}</p>
         </div>
         <div className="rounded-2xl border bg-emerald-50 border-emerald-100 p-4">
-          <p className="text-2xl font-bold text-emerald-700">₱{(totalFuel + totalExpense).toLocaleString()}</p>
+          <p className="text-2xl font-bold text-emerald-700">₹{(totalFuel + totalExpense).toLocaleString()}</p>
           <p className="text-xs font-medium text-emerald-600/70 mt-0.5">Total Operational Cost</p>
           <p className="text-xs text-emerald-500 mt-1">Fuel + Expenses combined</p>
         </div>
@@ -154,7 +154,7 @@ export default function CostsPage() {
       <ConfirmDialog
         open={!!delFuel}
         title="Delete Fuel Log"
-        message={`Delete this fuel log (${delFuel?.liters}L · ₱${delFuel?.cost?.toLocaleString()})? This cannot be undone.`}
+        message={`Delete this fuel log (${delFuel?.liters}L · ₹${delFuel?.cost?.toLocaleString()})? This cannot be undone.`}
         confirmLabel="Delete"
         loading={delLoading}
         onConfirm={async () => {
@@ -170,7 +170,7 @@ export default function CostsPage() {
       <ConfirmDialog
         open={!!delExpense}
         title="Delete Expense"
-        message={`Delete this ₱${delExpense?.amount?.toLocaleString()} ${delExpense?.category} expense? This cannot be undone.`}
+        message={`Delete this ₹${delExpense?.amount?.toLocaleString()} ${delExpense?.category} expense? This cannot be undone.`}
         confirmLabel="Delete"
         loading={delLoading}
         onConfirm={async () => {
@@ -213,9 +213,9 @@ function FuelTable({ logs, loading, onDelete }: { logs: FuelLogRow[]; loading: b
               {l.trip ? `${l.trip.source} → ${l.trip.destination}` : '—'}
             </td>
             <td className="px-4 py-3.5 font-semibold text-gray-800 tabular-nums">{l.liters}L</td>
-            <td className="px-4 py-3.5 text-gray-700 tabular-nums">₱{l.cost?.toLocaleString()}</td>
+            <td className="px-4 py-3.5 text-gray-700 tabular-nums">₹{l.cost?.toLocaleString()}</td>
             <td className="px-4 py-3.5 text-gray-400 tabular-nums text-xs">
-              {l.liters > 0 && l.cost ? `₱${(l.cost / l.liters).toFixed(2)}/L` : '—'}
+              {l.liters > 0 && l.cost ? `₹${(l.cost / l.liters).toFixed(2)}/L` : '—'}
             </td>
             <td className="px-4 py-3.5 text-gray-400 text-xs whitespace-nowrap">
               {new Date(l.logged_at).toLocaleDateString('en-PH', { year: 'numeric', month: 'short', day: 'numeric' })}
@@ -265,7 +265,7 @@ function ExpenseTable({ expenses, loading, onDelete }: { expenses: ExpenseRow[];
             <td className="px-4 py-3.5 text-gray-500 text-xs">
               {e.trip ? `${e.trip.source} → ${e.trip.destination}` : '—'}
             </td>
-            <td className="px-4 py-3.5 font-semibold text-gray-800 tabular-nums">₱{e.amount?.toLocaleString()}</td>
+            <td className="px-4 py-3.5 font-semibold text-gray-800 tabular-nums">₹{e.amount?.toLocaleString()}</td>
             <td className="px-4 py-3.5 text-gray-400 text-xs whitespace-nowrap">
               {new Date(e.logged_at).toLocaleDateString('en-PH', { year: 'numeric', month: 'short', day: 'numeric' })}
             </td>
@@ -324,11 +324,11 @@ function FuelForm({ open, vehicles, onClose, onSubmit }: FormProps<CreateFuelLog
         <Select id="fl-vehicle" label="Vehicle" required value={vehicleId} onChange={e => setVehicleId(e.target.value)} options={vehicleOpts} placeholder="— Select vehicle —" />
         <div className="grid grid-cols-2 gap-4">
           <Input id="fl-liters" label="Liters" required type="number" min={0.1} step={0.1} value={liters} onChange={e => setLiters(e.target.value)} placeholder="45.5" />
-          <Input id="fl-cost" label="Total Cost (₱)" required type="number" min={0} value={cost} onChange={e => setCost(e.target.value)} placeholder="3200" />
+          <Input id="fl-cost" label="Total Cost (₹)" required type="number" min={0} value={cost} onChange={e => setCost(e.target.value)} placeholder="3200" />
         </div>
         {liters && cost && parseFloat(liters) > 0 && (
           <div className="bg-blue-50 border border-blue-100 rounded-xl px-4 py-3 text-sm text-blue-700">
-            Cost per liter: <strong>₱{(parseFloat(cost) / parseFloat(liters)).toFixed(2)}</strong>
+            Cost per liter: <strong>₹{(parseFloat(cost) / parseFloat(liters)).toFixed(2)}</strong>
           </div>
         )}
       </form>
@@ -364,7 +364,7 @@ function ExpenseForm({ open, vehicles, onClose, onSubmit }: FormProps<CreateExpe
       <form id="expense-form" onSubmit={handleSubmit} className="space-y-5">
         {err && <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-3">{err}</p>}
         <Select id="exp-cat" label="Category" required value={category} onChange={e => setCategory(e.target.value as typeof category)} options={EXPENSE_CATEGORIES} />
-        <Input id="exp-amount" label="Amount (₱)" required type="number" min={0} value={amount} onChange={e => setAmount(e.target.value)} placeholder="500" />
+        <Input id="exp-amount" label="Amount (₹)" required type="number" min={0} value={amount} onChange={e => setAmount(e.target.value)} placeholder="500" />
         <Select id="exp-vehicle" label="Vehicle (optional)" value={vehicleId} onChange={e => setVehicleId(e.target.value)} options={vehicleOpts} placeholder="— Not vehicle-specific —" />
       </form>
     </SlideOver>

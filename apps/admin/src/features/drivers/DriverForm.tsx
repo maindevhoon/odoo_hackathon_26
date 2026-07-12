@@ -119,7 +119,7 @@ export function DriverForm({ open, onClose, initial, onSubmit }: Props) {
           value={form.name}
           onChange={e => set('name', e.target.value)}
           error={errors.name}
-          placeholder="Alex Santos"
+          placeholder="Rohan Sharma"
         />
 
         <div className="grid grid-cols-2 gap-4">
@@ -128,15 +128,15 @@ export function DriverForm({ open, onClose, initial, onSubmit }: Props) {
             value={form.license_no}
             onChange={e => set('license_no', e.target.value.toUpperCase())}
             error={errors.license_no}
-            placeholder="N01-23-456789"
+            placeholder="MH12 20230012345"
           />
           <Input
             id="license-category" label="License Category" required
             value={form.license_category}
             onChange={e => set('license_category', e.target.value.toUpperCase())}
             error={errors.license_category}
-            placeholder="B, C, D…"
-            hint="B=light, C=heavy, D=bus"
+            placeholder="LMV, HMV, MCWG…"
+            hint="LMV=light, HMV=heavy, MCWG=motorcycle"
           />
         </div>
 
@@ -163,7 +163,7 @@ export function DriverForm({ open, onClose, initial, onSubmit }: Props) {
             value={form.contact}
             onChange={e => set('contact', e.target.value)}
             error={errors.contact}
-            placeholder="+63 917 123 4567"
+            placeholder="+91 98765 43210"
           />
         </div>
 

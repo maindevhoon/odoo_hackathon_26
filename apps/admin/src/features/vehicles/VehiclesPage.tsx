@@ -213,7 +213,7 @@ export default function VehiclesPage() {
                     <td className="px-4 py-3.5 text-gray-700">{v.max_load_kg.toLocaleString()} kg</td>
                     <td className="px-4 py-3.5 text-gray-500">{v.odometer.toLocaleString()} km</td>
                     <td className="px-4 py-3.5 text-gray-500">
-                      ₱{v.acquisition_cost.toLocaleString()}
+                      ₹{v.acquisition_cost.toLocaleString()}
                     </td>
                     <td className="px-4 py-3.5 text-gray-500">{v.region ?? '—'}</td>
                     <td className="px-4 py-3.5">

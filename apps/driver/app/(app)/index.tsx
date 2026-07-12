@@ -1,10 +1,13 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useAuth } from '../../src/contexts/AuthContext';
+import { useDriver } from '../../src/contexts/DriverContext';
+import { getQueueSize } from '../../src/db/queries';
 
 export default function HomeScreen() {
-  const { profile, signOut } = useAuth();
+  const { profile } = useAuth();
+  const { driver, tier, xp, online, syncing, refresh } = useDriver();
+  const pending = getQueueSize();
 
   return (
     <View style={styles.container}>
@@ -12,26 +15,26 @@ export default function HomeScreen() {
 
       <View style={styles.header}>
         <Text style={styles.greeting}>Hello, {profile?.full_name?.split(' ')[0] ?? 'Driver'} 👋</Text>
-        <Text style={styles.subGreeting}>Phase 1 Auth Complete ✓</Text>
-      </View>
-
-      {/* Auth success card */}
-      <View style={styles.successCard}>
-        <Text style={styles.successTitle}>🔐 Authenticated</Text>
-        <Text style={styles.successText}>
-          You're signed in and your session is persisted securely on-device via SecureStore.
-          Works offline!
+        <Text style={[styles.subGreeting, { color: online ? '#4ade80' : '#f87171' }]}>
+          {online ? (syncing ? 'Syncing…' : 'Online — up to date') : 'Offline — working from local data'}
         </Text>
       </View>
 
-      {/* Coming soon */}
-      <View style={styles.comingSoon}>
-        <Text style={styles.comingSoonTitle}>Coming in Phase 3</Text>
-        <Text style={styles.comingSoonText}>• My Trips{'\n'}• Contract Board{'\n'}• XP &amp; Tier Progress{'\n'}• Fuel Logging</Text>
+      <View style={styles.successCard}>
+        <Text style={styles.successTitle}>{driver ? `${tier.toUpperCase()} · ${xp} XP` : 'Driver profile loading…'}</Text>
+        <Text style={styles.successText}>
+          Trips, contracts, and fuel logs are stored on this device and work fully offline.
+          {pending > 0 ? ` ${pending} change${pending === 1 ? '' : 's'} waiting to sync.` : ''}
+        </Text>
       </View>
 
-      <TouchableOpacity style={styles.signOutBtn} onPress={signOut}>
-        <Text style={styles.signOutText}>Sign Out</Text>
+      <View style={styles.comingSoon}>
+        <Text style={styles.comingSoonTitle}>Quick links</Text>
+        <Text style={styles.comingSoonText}>• My Trips — complete active dispatches{'\n'}• Contracts — accept tier-gated jobs{'\n'}• Profile — XP, tier &amp; leaderboard</Text>
+      </View>
+
+      <TouchableOpacity style={styles.signOutBtn} onPress={refresh}>
+        <Text style={styles.signOutText}>{syncing ? 'Syncing…' : 'Sync now'}</Text>
       </TouchableOpacity>
     </View>
   );

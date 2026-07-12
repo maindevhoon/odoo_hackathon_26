@@ -229,7 +229,7 @@ export default function ContractsPage() {
                           {tc.label}+
                         </span>
                       </td>
-                      <td className="px-4 py-3.5 font-semibold text-emerald-700 tabular-nums">₱{c.pay.toLocaleString()}</td>
+                      <td className="px-4 py-3.5 font-semibold text-emerald-700 tabular-nums">₹{c.pay.toLocaleString()}</td>
                       <td className="px-4 py-3.5 text-gray-400 text-xs whitespace-nowrap">
                         {new Date(c.start_date).toLocaleDateString('en-PH',{month:'short',day:'numeric'})} –{' '}
                         {new Date(c.end_date).toLocaleDateString('en-PH',{month:'short',day:'numeric',year:'numeric'})}
@@ -367,15 +367,15 @@ function CreateContractForm({ open, userId, onClose, onSubmit }: CreateFormProps
       footer={<><Button variant="secondary" onClick={onClose} disabled={loading}>Cancel</Button><Button form="contract-form" type="submit" loading={loading}>Post Contract</Button></>}>
       <form id="contract-form" onSubmit={handleSubmit} className="space-y-5">
         {serverError && <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-3">{serverError}</p>}
-        <Input id="c-title" label="Contract Title" required value={form.title} onChange={e => set('title', e.target.value)} placeholder="e.g. Weekly Palawan Logistics Run" />
+        <Input id="c-title" label="Contract Title" required value={form.title} onChange={e => set('title', e.target.value)} placeholder="e.g. Weekly Pune Logistics Run" />
         <div className="grid grid-cols-2 gap-4">
           <Select id="c-vclass" label="Vehicle Class" value={form.vehicle_class} onChange={e => set('vehicle_class', e.target.value)}
             options={[{value:'motorcycle',label:'Motorcycle'},{value:'pickup',label:'Pickup'},{value:'van',label:'Van'},{value:'truck',label:'Truck'}]}/>
           <Input id="c-cargo" label="Cargo Type" required value={form.cargo_type} onChange={e => set('cargo_type', e.target.value)} placeholder="e.g. Electronics" />
         </div>
         <div className="grid grid-cols-2 gap-4">
-          <Input id="c-region" label="Region" required value={form.region} onChange={e => set('region', e.target.value)} placeholder="e.g. NCR" />
-          <Input id="c-pay" label="Pay (₱)" type="number" min={1} required value={form.pay || ''} onChange={e => set('pay', parseFloat(e.target.value) || 0)} placeholder="15000" />
+          <Input id="c-region" label="Region" required value={form.region} onChange={e => set('region', e.target.value)} placeholder="e.g. Maharashtra" />
+          <Input id="c-pay" label="Pay (₹)" type="number" min={1} required value={form.pay || ''} onChange={e => set('pay', parseFloat(e.target.value) || 0)} placeholder="15000" />
         </div>
         <div className="grid grid-cols-2 gap-4">
           <Input id="c-start" label="Start Date" type="date" required value={form.start_date} onChange={e => set('start_date', e.target.value)} />

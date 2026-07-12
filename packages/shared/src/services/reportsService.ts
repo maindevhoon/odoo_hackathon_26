@@ -183,9 +183,9 @@ export async function getTripsOverTime(
 // ─── CSV Export helpers ────────────────────────────────────────
 export function vehicleReportToCSV(rows: VehicleReportRow[]): string {
   const headers = [
-    'Reg No', 'Model', 'Type', 'Status', 'Acquisition Cost (₱)',
-    'Completed Trips', 'Revenue (₱)', 'Fuel Cost (₱)', 'Maintenance Cost (₱)',
-    'Operational Cost (₱)', 'ROI (%)', 'Fuel Efficiency (km/L)',
+    'Reg No', 'Model', 'Type', 'Status', 'Acquisition Cost (₹)',
+    'Completed Trips', 'Revenue (₹)', 'Fuel Cost (₹)', 'Maintenance Cost (₹)',
+    'Operational Cost (₹)', 'ROI (%)', 'Fuel Efficiency (km/L)',
   ];
   const csv = [
     headers.join(','),

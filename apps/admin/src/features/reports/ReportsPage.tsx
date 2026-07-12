@@ -136,7 +136,7 @@ export default function ReportsPage() {
               <YAxis tick={{ fontSize: 11 }} />
               <Tooltip />
               <Legend />
-              <Area type="monotone" dataKey="revenue" stroke="#10b981" fill="url(#colorRevenue)" name="Revenue (₱)" />
+              <Area type="monotone" dataKey="revenue" stroke="#10b981" fill="url(#colorRevenue)" name="Revenue (₹)" />
               <Area type="monotone" dataKey="completed" stroke="#3b82f6" fill="none" name="Trips" />
             </AreaChart>
           </ResponsiveContainer>
@@ -209,11 +209,11 @@ export default function ReportsPage() {
                     <td className="px-4 py-3.5 text-gray-500">{TYPE_LABELS[r.type] ?? r.type}</td>
                     <td className="px-4 py-3.5 text-gray-700 tabular-nums">{r.completedTrips}</td>
                     <td className="px-4 py-3.5 font-semibold text-emerald-700 tabular-nums">
-                      ₱{r.totalRevenue.toLocaleString()}
+                      ₹{r.totalRevenue.toLocaleString()}
                     </td>
-                    <td className="px-4 py-3.5 text-blue-600 tabular-nums">₱{r.totalFuelCost.toLocaleString()}</td>
-                    <td className="px-4 py-3.5 text-amber-600 tabular-nums">₱{r.totalMaintenanceCost.toLocaleString()}</td>
-                    <td className="px-4 py-3.5 text-red-600 tabular-nums font-semibold">₱{r.operationalCost.toLocaleString()}</td>
+                    <td className="px-4 py-3.5 text-blue-600 tabular-nums">₹{r.totalFuelCost.toLocaleString()}</td>
+                    <td className="px-4 py-3.5 text-amber-600 tabular-nums">₹{r.totalMaintenanceCost.toLocaleString()}</td>
+                    <td className="px-4 py-3.5 text-red-600 tabular-nums font-semibold">₹{r.operationalCost.toLocaleString()}</td>
                     {/* ROI badge */}
                     <td className="px-4 py-3.5">
                       <span className={cn(

@@ -248,13 +248,13 @@ insert into public.vehicles (id, reg_no, name_model, type, max_load_kg, odometer
 values (
   'aaaaaaaa-0001-0000-0000-000000000001',
   'Van-05',
-  'Toyota HiAce Van',
+  'Tata Ace Gold Van',
   'van',
   500.00,
   12500.00,
-  45000.00,
+  650000.00,
   'available',
-  'Metro'
+  'Mumbai'
 );
 
 -- Vehicle: Truck-01 (5000 kg, Available)
@@ -262,13 +262,13 @@ insert into public.vehicles (id, reg_no, name_model, type, max_load_kg, odometer
 values (
   'aaaaaaaa-0001-0000-0000-000000000002',
   'Truck-01',
-  'Isuzu Forward Truck',
+  'Ashok Leyland Dost Truck',
   'truck',
   5000.00,
   45200.00,
-  120000.00,
+  2200000.00,
   'available',
-  'Metro'
+  'Mumbai'
 );
 
 -- Vehicle: Pick-02 (1000 kg, In Shop)
@@ -276,50 +276,50 @@ insert into public.vehicles (id, reg_no, name_model, type, max_load_kg, odometer
 values (
   'aaaaaaaa-0001-0000-0000-000000000003',
   'Pick-02',
-  'Ford Ranger Pickup',
+  'Mahindra Bolero Pickup',
   'pickup',
   1000.00,
   8900.00,
-  60000.00,
+  850000.00,
   'in_shop',
-  'North'
+  'Delhi'
 );
 
--- Driver: Alex (valid license)
+-- Driver: Rohan (valid license)
 insert into public.drivers (id, name, license_no, license_category, license_expiry, contact, safety_score, status)
 values (
   'bbbbbbbb-0001-0000-0000-000000000001',
-  'Alex Santos',
-  'DL-ALEX-001',
-  'B',
+  'Rohan Sharma',
+  'MH12 20230012345',
+  'LMV',
   '2028-12-31',
-  '+63-9171234567',
+  '+91-9171234567',
   98.00,
   'available'
 );
 
--- Driver: Maria (valid license)
+-- Driver: Priya (valid license)
 insert into public.drivers (id, name, license_no, license_category, license_expiry, contact, safety_score, status)
 values (
   'bbbbbbbb-0001-0000-0000-000000000002',
-  'Maria Cruz',
-  'DL-MARIA-002',
-  'A',
+  'Priya Nair',
+  'DL04 20220098765',
+  'HMV',
   '2027-06-30',
-  '+63-9189876543',
+  '+91-9189876543',
   92.00,
   'available'
 );
 
--- Driver: Ben (expired license — for negative test)
+-- Driver: Vikram (expired license — for negative test)
 insert into public.drivers (id, name, license_no, license_category, license_expiry, contact, safety_score, status)
 values (
   'bbbbbbbb-0001-0000-0000-000000000003',
-  'Ben Reyes',
-  'DL-BEN-003',
-  'B',
+  'Vikram Singh',
+  'KA05 20190054321',
+  'LMV',
   '2024-01-01',
-  '+63-9201112222',
+  '+91-9201112222',
   75.00,
   'off_duty'
 );

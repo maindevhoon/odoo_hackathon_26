@@ -104,21 +104,21 @@ export default function DashboardPage() {
         <div className="col-span-2 grid grid-cols-2 gap-4">
           <div className="bg-emerald-50 border border-emerald-100 rounded-2xl p-5">
             <p className="text-xs font-semibold text-emerald-500 uppercase tracking-wide mb-1">Total Revenue</p>
-            {loading ? <Skeleton /> : <p className="text-3xl font-bold text-emerald-700">₱{kpi.totalRevenue.toLocaleString()}</p>}
+            {loading ? <Skeleton /> : <p className="text-3xl font-bold text-emerald-700">₹{kpi.totalRevenue.toLocaleString()}</p>}
             <p className="text-xs text-emerald-500 mt-1">Completed trips</p>
           </div>
           <div className="bg-red-50 border border-red-100 rounded-2xl p-5">
             <p className="text-xs font-semibold text-red-500 uppercase tracking-wide mb-1">Operational Cost</p>
-            {loading ? <Skeleton /> : <p className="text-3xl font-bold text-red-700">₱{kpi.totalOperationalCost.toLocaleString()}</p>}
+            {loading ? <Skeleton /> : <p className="text-3xl font-bold text-red-700">₹{kpi.totalOperationalCost.toLocaleString()}</p>}
             <p className="text-xs text-red-400 mt-1">Fuel + Maintenance</p>
           </div>
           <div className="bg-blue-50 border border-blue-100 rounded-2xl p-5">
             <p className="text-xs font-semibold text-blue-500 uppercase tracking-wide mb-1">Fuel Cost</p>
-            {loading ? <Skeleton /> : <p className="text-2xl font-bold text-blue-700">₱{kpi.totalFuelCost.toLocaleString()}</p>}
+            {loading ? <Skeleton /> : <p className="text-2xl font-bold text-blue-700">₹{kpi.totalFuelCost.toLocaleString()}</p>}
           </div>
           <div className="bg-amber-50 border border-amber-100 rounded-2xl p-5">
             <p className="text-xs font-semibold text-amber-500 uppercase tracking-wide mb-1">Maintenance Cost</p>
-            {loading ? <Skeleton /> : <p className="text-2xl font-bold text-amber-700">₱{kpi.totalMaintenanceCost.toLocaleString()}</p>}
+            {loading ? <Skeleton /> : <p className="text-2xl font-bold text-amber-700">₹{kpi.totalMaintenanceCost.toLocaleString()}</p>}
           </div>
         </div>
       </div>

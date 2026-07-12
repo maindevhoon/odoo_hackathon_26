@@ -125,10 +125,10 @@ export function TripForm({ open, onClose, onSubmit }: Props) {
         <div className="grid grid-cols-2 gap-4">
           <Input id="source" label="Origin" required
             value={form.source} onChange={e => set('source', e.target.value)}
-            error={errors.source} placeholder="Manila" />
+            error={errors.source} placeholder="Mumbai" />
           <Input id="destination" label="Destination" required
             value={form.destination} onChange={e => set('destination', e.target.value)}
-            error={errors.destination} placeholder="Cebu" />
+            error={errors.destination} placeholder="Pune" />
         </div>
 
         {/* Vehicle picker */}
@@ -198,7 +198,7 @@ export function TripForm({ open, onClose, onSubmit }: Props) {
             value={form.planned_distance || ''}
             onChange={e => set('planned_distance', parseFloat(e.target.value) || 0)}
             error={errors.planned_distance} placeholder="0" />
-          <Input id="revenue" label="Revenue (₱)" type="number" min={0}
+          <Input id="revenue" label="Revenue (₹)" type="number" min={0}
             value={form.revenue || ''}
             onChange={e => set('revenue', parseFloat(e.target.value) || 0)}
             placeholder="0" />

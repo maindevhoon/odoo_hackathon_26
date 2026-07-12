@@ -84,7 +84,7 @@ export default function MaintenancePage() {
           { label: 'Total Records',    value: logs.length,               color: 'bg-brand-50 text-brand-700 border-brand-100'   },
           { label: 'Currently Active', value: active.length,             color: 'bg-amber-50 text-amber-700 border-amber-100'   },
           { label: 'Closed',           value: history.length,            color: 'bg-gray-50 text-gray-600 border-gray-100'      },
-          { label: 'Total Cost (₱)',   value: `₱${totalCost.toLocaleString()}`, color: 'bg-red-50 text-red-700 border-red-100' },
+          { label: 'Total Cost (₹)',   value: `₹${totalCost.toLocaleString()}`, color: 'bg-red-50 text-red-700 border-red-100' },
         ].map(({ label, value, color }) => (
           <div key={label} className={`rounded-2xl border p-4 ${color}`}>
             <p className="text-2xl font-bold">{value}</p>
@@ -184,7 +184,7 @@ export default function MaintenancePage() {
                     </td>
                     <td className="px-4 py-3.5 text-gray-700 max-w-[200px] truncate">{log.description}</td>
                     <td className="px-4 py-3.5 text-gray-700 tabular-nums">
-                      {log.cost ? `₱${log.cost.toLocaleString()}` : '—'}
+                      {log.cost ? `₹${log.cost.toLocaleString()}` : '—'}
                     </td>
                     <td className="px-4 py-3.5 text-gray-500 text-xs whitespace-nowrap">
                       {new Date(log.opened_at).toLocaleDateString('en-PH', { year:'numeric', month:'short', day:'numeric' })}

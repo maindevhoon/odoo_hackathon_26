@@ -134,7 +134,7 @@ export function MaintenanceForm({ open, onClose, onSubmit }: Props) {
         />
 
         <Input
-          id="maint-cost" label="Estimated Cost (₱)" type="number" min={0}
+          id="maint-cost" label="Estimated Cost (₹)" type="number" min={0}
           value={form.cost || ''}
           onChange={e => set('cost', parseFloat(e.target.value) || 0)}
           error={errors.cost}

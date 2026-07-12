@@ -45,6 +45,18 @@ export async function getDriverById(
   return { data: data as Driver | null, error: error?.message ?? null };
 }
 
+export async function getDriverByProfileId(
+  supabase: SupabaseClient,
+  profileId: string
+): Promise<{ data: Driver | null; error: string | null }> {
+  const { data, error } = await supabase
+    .from('drivers')
+    .select('*')
+    .eq('profile_id', profileId)
+    .maybeSingle();
+  return { data: data as Driver | null, error: error?.message ?? null };
+}
+
 // ─── Business rule §3 helpers ─────────────────────────────────
 export function isLicenseExpired(licenseExpiry: string): boolean {
   const today = new Date().toISOString().split('T')[0];

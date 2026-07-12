@@ -298,7 +298,7 @@ function TripRow({ trip, onDispatch, onComplete, onCancel }: TripRowProps) {
       </td>
       {/* Revenue */}
       <td className="px-4 py-3.5 text-gray-500 tabular-nums">
-        {trip.revenue ? `₱${trip.revenue.toLocaleString()}` : '—'}
+        {trip.revenue ? `₹${trip.revenue.toLocaleString()}` : '—'}
       </td>
       {/* Status */}
       <td className="px-4 py-3.5">

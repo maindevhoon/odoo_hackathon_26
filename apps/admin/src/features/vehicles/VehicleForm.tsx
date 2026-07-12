@@ -148,7 +148,7 @@ export function VehicleForm({ open, onClose, initial, onSubmit }: Props) {
           value={form.name_model}
           onChange={e => set('name_model', e.target.value)}
           error={errors.name_model}
-          placeholder="Toyota HiAce"
+          placeholder="Tata Ace Gold"
         />
 
         <div className="grid grid-cols-2 gap-4">
@@ -170,7 +170,7 @@ export function VehicleForm({ open, onClose, initial, onSubmit }: Props) {
 
         <div className="grid grid-cols-2 gap-4">
           <Input
-            id="acquisition_cost" label="Acquisition Cost (₱)" required type="number" min={0}
+            id="acquisition_cost" label="Acquisition Cost (₹)" required type="number" min={0}
             value={form.acquisition_cost || ''}
             onChange={e => set('acquisition_cost', parseFloat(e.target.value) || 0)}
             error={errors.acquisition_cost}
@@ -190,7 +190,7 @@ export function VehicleForm({ open, onClose, initial, onSubmit }: Props) {
           value={form.region}
           onChange={e => set('region', e.target.value)}
           error={errors.region}
-          placeholder="Metro Manila"
+          placeholder="Mumbai"
         />
       </form>
     </SlideOver>
