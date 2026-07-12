@@ -28,17 +28,46 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   useEffect(() => {
-    supabase.auth.getSession().then(async ({ data: { session } }) => {
-      const profile = session?.user ? await fetchProfile(session.user.id) : null;
-      setState({ user: session?.user ?? null, session, profile, loading: false });
-    });
+    let mounted = true;
+    // Never leave the root route on its blue loading screen when the device
+    // cannot reach the local Supabase host (common before Android port setup).
+    const loadSession = async () => {
+      try {
+        const result = await Promise.race([
+          supabase.auth.getSession(),
+          new Promise<never>((_, reject) =>
+            setTimeout(() => reject(new Error('Auth startup timed out')), 5000),
+          ),
+        ]);
+        const session = result.data.session;
+        let profile: Profile | null = null;
+        if (session?.user) {
+          try {
+            profile = await Promise.race([
+              fetchProfile(session.user.id),
+              new Promise<null>((resolve) => setTimeout(() => resolve(null), 3000)),
+            ]);
+          } catch {
+            profile = null;
+          }
+        }
+        if (mounted) setState({ user: session?.user ?? null, session, profile, loading: false });
+      } catch {
+        if (mounted) setState({ user: null, session: null, profile: null, loading: false });
+      }
+    };
+    loadSession();
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_e, session) => {
-      const profile = session?.user ? await fetchProfile(session.user.id) : null;
-      setState({ user: session?.user ?? null, session, profile, loading: false });
+      try {
+        const profile = session?.user ? await fetchProfile(session.user.id) : null;
+        if (mounted) setState({ user: session?.user ?? null, session, profile, loading: false });
+      } catch {
+        if (mounted) setState({ user: session?.user ?? null, session, profile: null, loading: false });
+      }
     });
 
-    return () => subscription.unsubscribe();
+    return () => { mounted = false; subscription.unsubscribe(); };
   }, []);
 
   async function signIn(email: string, password: string) {

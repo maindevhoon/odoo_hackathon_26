@@ -22,6 +22,4 @@ supabase/.temp/
 .DS_Store
 *.log
 
-# Agent-facing docs (not for repo history)
-AGENTS.md
-handoff.md
+
