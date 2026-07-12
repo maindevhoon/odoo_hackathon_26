@@ -100,7 +100,7 @@ All core status transitions affecting multiple database tables run atomically th
 3. **Configure Environment Variables:**
    * In `apps/admin/`, create a `.env` file based on `.env.example`:
      ```env
-     VITE_SUPABASE_URL=https://yjpefmarjxmjnxgoxkql.supabase.co
+     VITE_SUPABASE_URL=<your-project-url>.supabase.co
      VITE_SUPABASE_ANON_KEY=<your-supabase-anon-key>
      ```
 
