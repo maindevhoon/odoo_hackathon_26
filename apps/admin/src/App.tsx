@@ -5,6 +5,8 @@ import { AppLayout } from '@/components/layout/AppLayout';
 import LoginPage from '@/pages/LoginPage';
 import DashboardPage from '@/pages/DashboardPage';
 import UnauthorizedPage from '@/pages/UnauthorizedPage';
+import VehiclesPage from '@/features/vehicles/VehiclesPage';
+import DriversPage from '@/features/drivers/DriversPage';
 
 // Phase placeholders — replaced per phase
 const Placeholder = ({ name }: { name: string }) => (
@@ -37,13 +39,13 @@ export default function App() {
               <Route
                 element={<ProtectedRoute allowedRoles={['fleet_manager', 'safety_officer']} />}
               >
-                <Route path="/drivers" element={<Placeholder name="Driver Management" />} />
+                <Route path="/drivers" element={<DriversPage />} />
                 <Route path="/maintenance" element={<Placeholder name="Maintenance Logs" />} />
               </Route>
 
               {/* Fleet Manager only */}
               <Route element={<ProtectedRoute allowedRoles={['fleet_manager']} />}>
-                <Route path="/vehicles" element={<Placeholder name="Vehicle Registry" />} />
+                <Route path="/vehicles" element={<VehiclesPage />} />
                 <Route path="/contracts" element={<Placeholder name="Contracts" />} />
               </Route>
 
