@@ -21,5 +21,10 @@ supabase/.temp/
 # OS
 .DS_Store
 *.log
-
-
+# Agent-facing documentation and metadata
+AGENTS.md
+DESIGN.md
+handoff.md
+plan.md
+docs/LOCAL_SUPABASE_MIGRATION.md
+docs/PRODUCT_SCOPE.md
