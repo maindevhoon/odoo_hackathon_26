@@ -8,15 +8,15 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const VARIANTS = {
-  primary:   'bg-brand-600 hover:bg-brand-700 text-white shadow-sm',
-  secondary: 'bg-white hover:bg-gray-50 text-gray-700 border border-gray-200 shadow-sm',
-  danger:    'bg-red-600 hover:bg-red-700 text-white shadow-sm',
-  ghost:     'hover:bg-gray-100 text-gray-600',
+  primary:   'bg-brand-500 hover:bg-brand-600 active:bg-brand-700 text-white',
+  secondary: 'bg-[#f4f4f4] hover:bg-[#e9e9e9] active:bg-[#dedede] text-[#393C41]',
+  danger:    'bg-[#393C41] hover:bg-[#171A20] active:bg-black text-white',
+  ghost:     'hover:bg-[#f4f4f4] active:bg-[#eeeeee] text-[#5C5E62]',
 };
 const SIZES = {
-  sm: 'px-3 py-1.5 text-xs gap-1.5',
-  md: 'px-4 py-2 text-sm gap-2',
-  lg: 'px-5 py-2.5 text-sm gap-2',
+  sm: 'min-h-8 px-3 py-1.5 text-xs gap-1.5',
+  md: 'min-h-10 px-4 py-2 text-sm gap-2',
+  lg: 'min-h-10 px-5 py-2.5 text-sm gap-2',
 };
 
 export const Button = forwardRef<HTMLButtonElement, Props>(
@@ -25,7 +25,7 @@ export const Button = forwardRef<HTMLButtonElement, Props>(
       ref={ref}
       disabled={disabled || loading}
       className={cn(
-        'inline-flex items-center justify-center rounded-xl font-semibold transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-1 disabled:opacity-50 disabled:cursor-not-allowed',
+        'inline-flex items-center justify-center rounded font-medium transition-colors duration-[330ms] disabled:opacity-45 disabled:cursor-not-allowed disabled:pointer-events-none',
         VARIANTS[variant],
         SIZES[size],
         className

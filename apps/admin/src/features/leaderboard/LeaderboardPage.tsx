@@ -76,8 +76,8 @@ export default function LeaderboardPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Driver Leaderboard</h1>
-          <p className="text-sm text-gray-500 mt-0.5">Ranked by XP · Updates live</p>
+          <h1 className="text-2xl font-bold text-gray-900">Verified Talent Progress</h1>
+          <p className="text-sm text-gray-500 mt-0.5">A portable readiness view built from completed contracts, safety, and capability.</p>
         </div>
         <span className={cn(
           'flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border transition-colors duration-300',

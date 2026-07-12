@@ -140,10 +140,10 @@ export function subscribeToLeaderboard(
 
 // ─── Tier display helpers ─────────────────────────────────────
 export const TIER_CONFIG: Record<Tier, { label: string; color: string; bg: string; border: string; ring: string }> = {
-  bronze:   { label: 'Bronze',   color: 'text-amber-700',   bg: 'bg-amber-50',   border: 'border-amber-200', ring: '#d97706' },
-  silver:   { label: 'Silver',   color: 'text-gray-600',    bg: 'bg-gray-100',   border: 'border-gray-200',  ring: '#9ca3af' },
-  gold:     { label: 'Gold',     color: 'text-yellow-700',  bg: 'bg-yellow-50',  border: 'border-yellow-200',ring: '#ca8a04' },
-  platinum: { label: 'Platinum', color: 'text-purple-700',  bg: 'bg-purple-50',  border: 'border-purple-200',ring: '#7c3aed' },
+  bronze:   { label: 'Bronze',   color: 'text-gray-700', bg: 'bg-gray-50', border: 'border-gray-200', ring: '#3E6AE1' },
+  silver:   { label: 'Silver',   color: 'text-gray-700', bg: 'bg-gray-50', border: 'border-gray-200', ring: '#3E6AE1' },
+  gold:     { label: 'Gold',     color: 'text-gray-700', bg: 'bg-gray-50', border: 'border-gray-200', ring: '#3E6AE1' },
+  platinum: { label: 'Platinum', color: 'text-gray-700', bg: 'bg-gray-50', border: 'border-gray-200', ring: '#3E6AE1' },
 };
 
 export const TIER_PERKS: Record<Tier, string> = {

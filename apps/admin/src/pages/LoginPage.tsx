@@ -41,20 +41,10 @@ export default function LoginPage() {
       />
 
       <div className="relative w-full max-w-md">
-        {/* Logo + Brand */}
+        {/* Brand-free entry */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 mb-5 shadow-2xl">
-            <svg viewBox="0 0 48 48" fill="none" className="w-9 h-9" xmlns="http://www.w3.org/2000/svg">
-              <rect x="4" y="28" width="32" height="12" rx="3" fill="white" fillOpacity="0.9"/>
-              <rect x="8" y="20" width="20" height="10" rx="2" fill="white" fillOpacity="0.7"/>
-              <circle cx="12" cy="40" r="4" fill="white"/>
-              <circle cx="28" cy="40" r="4" fill="white"/>
-              <path d="M36 20 L44 20 L44 36 L36 36" stroke="white" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
-              <circle cx="40" cy="40" r="4" fill="white" fillOpacity="0.7"/>
-            </svg>
-          </div>
-          <h1 className="text-3xl font-bold text-white tracking-tight">TransitOps</h1>
-          <p className="text-brand-300 mt-1 text-sm">Fleet Operations Platform</p>
+          <h1 className="text-3xl font-medium text-white tracking-tight">Operations console</h1>
+          <p className="text-brand-300 mt-1 text-sm">Workforce and fleet management</p>
         </div>
 
         {/* Card */}
@@ -189,7 +179,7 @@ export default function LoginPage() {
 
         {/* Footer */}
         <p className="text-center text-brand-500 text-xs mt-6">
-          TransitOps © {new Date().getFullYear()} · Smart Transport Operations
+          Operations console © {new Date().getFullYear()}
         </p>
       </div>
     </div>

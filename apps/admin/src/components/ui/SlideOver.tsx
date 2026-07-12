@@ -31,7 +31,7 @@ export function SlideOver({ open, onClose, title, subtitle, children, footer, wi
       {/* Backdrop */}
       <div
         className={cn(
-          'fixed inset-0 bg-black/40 backdrop-blur-sm z-40 transition-opacity duration-200',
+          'fixed inset-0 bg-[#171A20]/60 backdrop-blur-sm z-40 transition-opacity duration-[330ms]',
           open ? 'opacity-100' : 'opacity-0 pointer-events-none'
         )}
         onClick={onClose}
@@ -40,7 +40,7 @@ export function SlideOver({ open, onClose, title, subtitle, children, footer, wi
       {/* Panel */}
       <div
         className={cn(
-          'fixed inset-y-0 right-0 w-full z-50 flex flex-col bg-white shadow-2xl transition-transform duration-300 ease-out',
+          'fixed inset-y-0 right-0 w-full z-50 flex flex-col bg-white transition-transform duration-[330ms] ease-out',
           width,
           open ? 'translate-x-0' : 'translate-x-full'
         )}
@@ -48,14 +48,14 @@ export function SlideOver({ open, onClose, title, subtitle, children, footer, wi
         aria-modal="true"
       >
         {/* Header */}
-        <div className="flex items-start justify-between px-6 py-5 border-b border-gray-100">
+        <div className="flex items-start justify-between px-7 py-6 border-b border-[#eeeeee]">
           <div>
-            <h2 className="text-lg font-bold text-gray-900">{title}</h2>
-            {subtitle && <p className="text-sm text-gray-500 mt-0.5">{subtitle}</p>}
+            <h2 className="text-lg font-bold text-slate-900">{title}</h2>
+            {subtitle && <p className="text-sm text-slate-500 mt-0.5">{subtitle}</p>}
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition ml-3 flex-shrink-0"
+            className="p-2 rounded hover:bg-[#f4f4f4] text-[#8e8e8e] hover:text-[#171A20] transition-colors ml-3 flex-shrink-0"
             aria-label="Close"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -65,11 +65,11 @@ export function SlideOver({ open, onClose, title, subtitle, children, footer, wi
         </div>
 
         {/* Body */}
-        <div className="flex-1 overflow-y-auto px-6 py-5">{children}</div>
+        <div className="flex-1 overflow-y-auto px-7 py-6">{children}</div>
 
         {/* Footer */}
         {footer && (
-          <div className="px-6 py-4 border-t border-gray-100 bg-gray-50 flex items-center justify-end gap-3">
+          <div className="px-7 py-5 border-t border-[#eeeeee] bg-white flex items-center justify-end gap-3">
             {footer}
           </div>
         )}
@@ -103,8 +103,8 @@ export function ConfirmDialog({ open, title, message, confirmLabel = 'Delete', o
         open ? 'opacity-100' : 'opacity-0 pointer-events-none'
       )}
     >
-      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={onCancel} />
-      <div className={cn('relative bg-white rounded-2xl shadow-2xl p-6 w-full max-w-sm transition-all duration-200', open ? 'scale-100' : 'scale-95')}>
+      <div className="absolute inset-0 bg-[#171A20]/60 backdrop-blur-sm" onClick={onCancel} />
+      <div className={cn('relative bg-white rounded-xl p-7 w-full max-w-sm transition-all duration-[330ms]', open ? 'scale-100' : 'scale-95')}>
         <div className="flex items-center gap-3 mb-4">
           <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
             <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

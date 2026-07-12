@@ -18,8 +18,9 @@ import LeaderboardPage from '@/features/leaderboard/LeaderboardPage';
 
 export default function App() {
   return (
-    <AuthProvider>
-      <BrowserRouter>
+    <div className="tesla-system">
+      <AuthProvider>
+        <BrowserRouter>
         <Routes>
           {/* Public */}
           <Route path="/login" element={<LoginPage />} />
@@ -62,7 +63,8 @@ export default function App() {
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
           <Route path="*" element={<Navigate to="/dashboard" replace />} />
         </Routes>
-      </BrowserRouter>
-    </AuthProvider>
+        </BrowserRouter>
+      </AuthProvider>
+    </div>
   );
 }

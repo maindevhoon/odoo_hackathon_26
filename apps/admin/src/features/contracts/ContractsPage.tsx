@@ -122,8 +122,8 @@ export default function ContractsPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Contract Board</h1>
-          <p className="text-sm text-gray-500 mt-0.5">Tier-gated driver contracts · Live via Realtime</p>
+          <h1 className="text-2xl font-bold text-gray-900">Quality Contract Marketplace</h1>
+          <p className="text-sm text-gray-500 mt-0.5">Post clear, time-bound work for verified workers who meet the role’s readiness gate.</p>
         </div>
         <div className="flex items-center gap-2">
           <span className="flex items-center gap-1.5 text-xs text-emerald-600 bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-full">
@@ -132,7 +132,7 @@ export default function ContractsPage() {
           </span>
           <Button id="create-contract-btn" onClick={() => setShowCreate(true)}>
             <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4"/></svg>
-            Post Contract
+            Post Quality Contract
           </Button>
         </div>
       </div>

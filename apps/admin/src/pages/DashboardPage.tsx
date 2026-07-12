@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { getFleetKPIs, type FleetKPIs } from '@transitops/shared';
 import { supabase } from '@/lib/supabase';
 import { cn } from '@/lib/utils';
@@ -6,8 +6,8 @@ import {
   PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend,
 } from 'recharts';
 
-const VEHICLE_COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#6b7280'];
-const DRIVER_COLORS  = ['#10b981', '#3b82f6', '#6b7280', '#ef4444'];
+const VEHICLE_COLORS = ['#3E6AE1', '#5C5E62', '#8E8E8E', '#D0D1D2'];
+const DRIVER_COLORS  = ['#3E6AE1', '#5C5E62', '#8E8E8E', '#D0D1D2'];
 
 const EMPTY_KPI: FleetKPIs = {
   totalVehicles: 0, activeVehicles: 0, availableVehicles: 0,
@@ -40,13 +40,18 @@ function KPICard({
 export default function DashboardPage() {
   const [kpi, setKpi]       = useState<FleetKPIs>(EMPTY_KPI);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    getFleetKPIs(supabase).then(({ data }) => {
-      setKpi(data);
-      setLoading(false);
-    });
+  const loadKpis = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    const result = await getFleetKPIs(supabase);
+    if (result.error) setError('We could not load live operational data. Check your connection or try again.');
+    setKpi(result.data);
+    setLoading(false);
   }, []);
+
+  useEffect(() => { void loadKpis(); }, [loadKpis]);
 
   // Pie chart data
   const vehiclePie = [
@@ -66,24 +71,55 @@ export default function DashboardPage() {
   const Skeleton = () => <div className="h-full bg-gray-100 rounded animate-pulse" />;
 
   return (
-    <div className="p-6 min-h-full space-y-6">
-      {/* Header */}
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900">Fleet Dashboard</h1>
-        <p className="text-sm text-gray-500 mt-0.5">Live operational overview</p>
-      </div>
+    <div className="p-8 min-h-full space-y-8 max-w-[1600px]">
+      {/* Command centre hero */}
+      <section className="bg-[#171A20] px-8 py-8 text-white">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-2xl">
+            <p className="text-sm text-white/70">Operations command centre</p>
+            <h1 className="mt-2 text-[40px] font-medium leading-[1.2] tracking-normal">Operations that build trusted careers.</h1>
+            <p className="mt-3 max-w-xl text-sm leading-5 text-white/70">See fleet readiness, active work, and the talent signals that unlock better contracts for proven professionals.</p>
+          </div>
+          <div className="grid grid-cols-3 gap-3 sm:min-w-[390px]">
+            <div className="border border-white/20 bg-white/[0.06] px-4 py-3">
+              <p className="text-xs text-white/60">Ready vehicles</p>
+              <p className="mt-1 text-2xl font-medium tabular-nums">{loading ? '—' : kpi.availableVehicles}</p>
+            </div>
+            <div className="border border-white/20 bg-white/[0.06] px-4 py-3">
+              <p className="text-xs text-white/60">Available talent</p>
+              <p className="mt-1 text-2xl font-medium tabular-nums">{loading ? '—' : kpi.driversAvailable}</p>
+            </div>
+            <div className="border border-white/20 bg-white/[0.06] px-4 py-3">
+              <p className="text-xs text-white/60">Live contracts</p>
+              <p className="mt-1 text-2xl font-medium tabular-nums">{loading ? '—' : kpi.activeTrips}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {error && (
+        <div role="alert" className="flex items-center justify-between gap-4 rounded-2xl border border-amber-200 bg-amber-50 px-5 py-4 text-sm text-amber-900">
+          <div>
+            <p className="font-bold">Live data is unavailable</p>
+            <p className="mt-0.5 text-amber-700">{error}</p>
+          </div>
+          <button onClick={() => void loadKpis()} className="rounded-xl bg-white px-3.5 py-2 text-xs font-bold text-amber-800 shadow-sm hover:bg-amber-100">
+            Retry
+          </button>
+        </div>
+      )}
 
       {/* ── Utilization hero ─────────────────────────────── */}
       <div className="grid grid-cols-3 gap-5">
         {/* Utilization ring */}
-        <div className="col-span-1 bg-white rounded-2xl border border-gray-100 shadow-sm p-6 flex flex-col items-center justify-center gap-3">
-          <p className="text-sm font-semibold text-gray-500 uppercase tracking-wide">Fleet Utilization</p>
+        <div className="col-span-1 surface-card bg-[#f4f4f4] p-6 flex flex-col items-center justify-center gap-3">
+          <p className="eyebrow">Fleet utilization</p>
           <div className="relative w-36 h-36">
             <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90">
-              <circle cx="50" cy="50" r="40" fill="none" stroke="#f3f4f6" strokeWidth="10"/>
+              <circle cx="50" cy="50" r="40" fill="none" stroke="#eeeeee" strokeWidth="10"/>
               <circle
                 cx="50" cy="50" r="40" fill="none"
-                stroke={kpi.fleetUtilizationPct > 70 ? '#10b981' : kpi.fleetUtilizationPct > 40 ? '#3b82f6' : '#f59e0b'}
+                stroke="#3E6AE1"
                 strokeWidth="10"
                 strokeDasharray={`${kpi.fleetUtilizationPct * 2.513} 251.3`}
                 strokeLinecap="round"
@@ -95,22 +131,22 @@ export default function DashboardPage() {
               <p className="text-xs text-gray-400">Utilized</p>
             </div>
           </div>
-          <p className="text-xs text-gray-400 text-center">
+          <p className="text-xs text-slate-500 text-center">
             {kpi.activeVehicles} of {kpi.totalVehicles - kpi.retiredVehicles} active vehicles on trip
           </p>
         </div>
 
         {/* Financial summary */}
         <div className="col-span-2 grid grid-cols-2 gap-4">
-          <div className="bg-emerald-50 border border-emerald-100 rounded-2xl p-5">
-            <p className="text-xs font-semibold text-emerald-500 uppercase tracking-wide mb-1">Total Revenue</p>
-            {loading ? <Skeleton /> : <p className="text-3xl font-bold text-emerald-700">₹{kpi.totalRevenue.toLocaleString()}</p>}
-            <p className="text-xs text-emerald-500 mt-1">Completed trips</p>
+          <div className="bg-white p-5">
+            <p className="text-sm font-medium text-[#5C5E62] mb-1">Total revenue</p>
+            {loading ? <Skeleton /> : <p className="text-3xl font-medium text-[#171A20]">₹{kpi.totalRevenue.toLocaleString()}</p>}
+            <p className="text-xs text-[#5C5E62] mt-1">Completed trips</p>
           </div>
-          <div className="bg-red-50 border border-red-100 rounded-2xl p-5">
-            <p className="text-xs font-semibold text-red-500 uppercase tracking-wide mb-1">Operational Cost</p>
-            {loading ? <Skeleton /> : <p className="text-3xl font-bold text-red-700">₹{kpi.totalOperationalCost.toLocaleString()}</p>}
-            <p className="text-xs text-red-400 mt-1">Fuel + Maintenance</p>
+          <div className="bg-white p-5">
+            <p className="text-sm font-medium text-[#5C5E62] mb-1">Operational cost</p>
+            {loading ? <Skeleton /> : <p className="text-3xl font-medium text-[#171A20]">₹{kpi.totalOperationalCost.toLocaleString()}</p>}
+            <p className="text-xs text-[#5C5E62] mt-1">Fuel + maintenance</p>
           </div>
           <div className="bg-blue-50 border border-blue-100 rounded-2xl p-5">
             <p className="text-xs font-semibold text-blue-500 uppercase tracking-wide mb-1">Fuel Cost</p>

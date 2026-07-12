@@ -13,3 +13,5 @@ export * from './services/fuelService';
 export * from './services/expenseService';
 export * from './services/reportsService';
 export * from './services/contractService';
+export * from './services/trustService';
+export * from './services/validation';

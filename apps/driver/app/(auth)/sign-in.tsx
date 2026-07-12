@@ -35,13 +35,10 @@ export default function SignInScreen() {
     >
       <StatusBar style="light" />
 
-      {/* Brand */}
+        {/* Brand-free entry */}
       <View style={styles.brand}>
-        <View style={styles.logoBox}>
-          <Text style={styles.logoEmoji}>🚚</Text>
-        </View>
-        <Text style={styles.title}>TransitOps</Text>
-        <Text style={styles.subtitle}>Driver Portal</Text>
+        <Text style={styles.title}>Operations console</Text>
+        <Text style={styles.subtitle}>Driver workspace</Text>
       </View>
 
       {/* Form card */}
@@ -131,13 +128,6 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   brand: { alignItems: 'center', marginBottom: 28 },
-  logoBox: {
-    width: 64, height: 64, borderRadius: 18,
-    backgroundColor: 'rgba(255,255,255,0.12)',
-    borderWidth: 1, borderColor: 'rgba(255,255,255,0.2)',
-    alignItems: 'center', justifyContent: 'center', marginBottom: 12,
-  },
-  logoEmoji: { fontSize: 28 },
   title: { fontSize: 28, fontWeight: '800', color: '#fff', letterSpacing: -0.5 },
   subtitle: { fontSize: 14, color: '#93c5fd', marginTop: 2 },
   card: {

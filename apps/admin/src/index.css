@@ -17,7 +17,53 @@
     @apply border-gray-200;
   }
 
-  body {
-    @apply bg-gray-50 text-gray-900 font-sans antialiased;
+  *:focus-visible {
+    @apply outline-none ring-2 ring-brand-500 ring-offset-2;
   }
+
+  body {
+    @apply bg-white text-[#171A20] font-sans antialiased;
+  }
+
+  button, input, select { -webkit-tap-highlight-color: transparent; }
+  ::selection { @apply bg-brand-100 text-brand-950; }
 }
+
+@layer components {
+  .surface-card { @apply rounded-xl bg-white; }
+  .eyebrow { @apply text-xs font-medium text-[#5C5E62]; }
+}
+
+/* Tesla palette migration: legacy feature pages still contain semantic Tailwind
+   utilities. Map them to the one-accent carbon/ash system until each page is
+   structurally rewritten. Errors retain their accessible red treatment below. */
+.tesla-system [class*="bg-blue-"],
+.tesla-system [class*="bg-emerald-"],
+.tesla-system [class*="bg-green-"],
+.tesla-system [class*="bg-amber-"],
+.tesla-system [class*="bg-yellow-"],
+.tesla-system [class*="bg-purple-"],
+.tesla-system [class*="bg-indigo-"],
+.tesla-system [class*="bg-teal-"] { background-color: #f4f4f4 !important; }
+
+.tesla-system [class*="text-blue-"],
+.tesla-system [class*="text-emerald-"],
+.tesla-system [class*="text-green-"],
+.tesla-system [class*="text-amber-"],
+.tesla-system [class*="text-yellow-"],
+.tesla-system [class*="text-purple-"],
+.tesla-system [class*="text-indigo-"],
+.tesla-system [class*="text-teal-"] { color: #393c41 !important; }
+
+.tesla-system [class*="border-blue-"],
+.tesla-system [class*="border-emerald-"],
+.tesla-system [class*="border-green-"],
+.tesla-system [class*="border-amber-"],
+.tesla-system [class*="border-yellow-"],
+.tesla-system [class*="border-purple-"],
+.tesla-system [class*="border-indigo-"],
+.tesla-system [class*="border-teal-"] { border-color: #eeeeee !important; }
+
+.tesla-system [class*="bg-red-"] { background-color: #fff5f5 !important; }
+.tesla-system [class*="text-red-"] { color: #b42318 !important; }
+.tesla-system [class*="border-red-"] { border-color: #fecdca !important; }

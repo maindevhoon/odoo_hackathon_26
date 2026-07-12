@@ -1,8 +1,10 @@
 import { useState, useEffect, type FormEvent } from 'react';
-import type { Vehicle } from '@transitops/shared';
+import { formatVehicleRegistration, isIndianVehicleRegistration, type Vehicle } from '@transitops/shared';
 import { SlideOver } from '@/components/ui/SlideOver';
 import { Input, Select } from '@/components/ui/FormFields';
 import { Button } from '@/components/ui/Button';
+import { getDrivers } from '@transitops/shared';
+import { supabase } from '@/lib/supabase';
 
 const VEHICLE_TYPES = [
   { value: 'van',        label: 'Van'        },
@@ -35,12 +37,13 @@ export interface VehicleFormData {
   acquisition_cost: number;
   status: string;
   region: string;
+  owner_driver_id: string | null;
 }
 
 const EMPTY: VehicleFormData = {
   reg_no: '', name_model: '', type: 'van',
   max_load_kg: 0, odometer: 0, acquisition_cost: 0,
-  status: 'available', region: '',
+  status: 'available', region: '', owner_driver_id: null,
 };
 
 export function VehicleForm({ open, onClose, initial, onSubmit }: Props) {
@@ -48,6 +51,7 @@ export function VehicleForm({ open, onClose, initial, onSubmit }: Props) {
   const [errors, setErrors] = useState<Partial<Record<keyof VehicleFormData, string>>>({});
   const [serverError, setServerError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [ownerDrivers, setOwnerDrivers] = useState<{ value: string; label: string }[]>([]);
 
   useEffect(() => {
     if (open) {
@@ -60,9 +64,15 @@ export function VehicleForm({ open, onClose, initial, onSubmit }: Props) {
         acquisition_cost: initial.acquisition_cost,
         status: initial.status,
         region: initial.region ?? '',
+        owner_driver_id: initial.owner_driver_id ?? null,
       } : EMPTY);
       setErrors({});
       setServerError(null);
+      void getDrivers(supabase).then(({ data }) => {
+        setOwnerDrivers(data
+          .filter(driver => driver.work_mode === 'owner_driver')
+          .map(driver => ({ value: driver.id, label: `${driver.name} · ${driver.license_category}` })));
+      });
     }
   }, [open, initial]);
 
@@ -74,6 +84,7 @@ export function VehicleForm({ open, onClose, initial, onSubmit }: Props) {
   function validate(): boolean {
     const e: Partial<Record<keyof VehicleFormData, string>> = {};
     if (!form.reg_no.trim())    e.reg_no     = 'Registration number is required';
+    else if (!isIndianVehicleRegistration(form.reg_no)) e.reg_no = 'Use a valid Indian registration mark, e.g. MH12AB1234 or 22BH1234AA';
     if (!form.name_model.trim()) e.name_model = 'Model name is required';
     if (!form.type)              e.type       = 'Vehicle type is required';
     if (form.max_load_kg <= 0)   e.max_load_kg = 'Max load must be greater than 0';
@@ -104,18 +115,18 @@ export function VehicleForm({ open, onClose, initial, onSubmit }: Props) {
     <SlideOver
       open={open}
       onClose={onClose}
-      title={isEdit ? 'Edit Vehicle' : 'Add Vehicle'}
-      subtitle={isEdit ? `Editing ${initial?.reg_no}` : 'Register a new vehicle in the fleet'}
+      title={isEdit ? 'Edit Vehicle' : 'Register Vehicle'}
+      subtitle={isEdit ? `Editing ${initial?.reg_no}` : 'Add a verified, dispatch-ready vehicle to the network.'}
       footer={
         <>
           <Button variant="secondary" onClick={onClose} disabled={loading}>Cancel</Button>
           <Button form="vehicle-form" type="submit" loading={loading}>
-            {isEdit ? 'Save Changes' : 'Add Vehicle'}
+            {isEdit ? 'Save Vehicle' : 'Register Vehicle'}
           </Button>
         </>
       }
     >
-      <form id="vehicle-form" onSubmit={handleSubmit} className="space-y-5">
+      <form id="vehicle-form" onSubmit={handleSubmit} className="space-y-6">
         {serverError && (
           <div className="flex items-center gap-2 bg-red-50 border border-red-200 rounded-xl px-4 py-3">
             <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-red-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -129,10 +140,10 @@ export function VehicleForm({ open, onClose, initial, onSubmit }: Props) {
           <Input
             id="reg_no" label="Registration Number" required
             value={form.reg_no}
-            onChange={e => set('reg_no', e.target.value.toUpperCase())}
+            onChange={e => set('reg_no', formatVehicleRegistration(e.target.value))}
             error={errors.reg_no}
-            placeholder="VAN-05"
-            hint="Must be unique across the fleet"
+            placeholder="MH12AB1234"
+            hint="Indian registration mark. Bharat-series marks such as 22BH1234AA are also accepted."
           />
           <Select
             id="type" label="Vehicle Type" required
@@ -191,6 +202,15 @@ export function VehicleForm({ open, onClose, initial, onSubmit }: Props) {
           onChange={e => set('region', e.target.value)}
           error={errors.region}
           placeholder="Mumbai"
+        />
+
+        <Select
+          id="owner_driver_id" label="Vehicle Arrangement"
+          value={form.owner_driver_id ?? ''}
+          onChange={e => set('owner_driver_id', e.target.value || null)}
+          options={ownerDrivers}
+          placeholder="Organization-owned vehicle"
+          hint="Choose an owner-driver only when this is their personally supplied vehicle."
         />
       </form>
     </SlideOver>

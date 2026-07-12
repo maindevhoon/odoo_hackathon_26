@@ -1,5 +1,5 @@
 import { useState, useEffect, type FormEvent } from 'react';
-import type { Driver } from '@transitops/shared';
+import { formatIndianMobileNumber, isIndianMobileNumber, type Driver } from '@transitops/shared';
 import { SlideOver } from '@/components/ui/SlideOver';
 import { Input, Select } from '@/components/ui/FormFields';
 import { Button } from '@/components/ui/Button';
@@ -20,6 +20,7 @@ export interface DriverFormData {
   contact: string;
   safety_score: number;
   status: string;
+  work_mode: 'driver_only' | 'owner_driver';
 }
 
 interface Props {
@@ -32,7 +33,7 @@ interface Props {
 const EMPTY: DriverFormData = {
   profile_id: null,
   name: '', license_no: '', license_category: 'B',
-  license_expiry: '', contact: '', safety_score: 100, status: 'available',
+  license_expiry: '', contact: '', safety_score: 100, status: 'available', work_mode: 'driver_only',
 };
 
 export function DriverForm({ open, onClose, initial, onSubmit }: Props) {
@@ -52,6 +53,7 @@ export function DriverForm({ open, onClose, initial, onSubmit }: Props) {
         contact: initial.contact,
         safety_score: initial.safety_score ?? 100,
         status: initial.status,
+        work_mode: initial.work_mode ?? 'driver_only',
       } : EMPTY);
       setErrors({});
       setServerError(null);
@@ -69,7 +71,8 @@ export function DriverForm({ open, onClose, initial, onSubmit }: Props) {
     if (!form.license_no.trim())       e.license_no       = 'License number is required';
     if (!form.license_category.trim()) e.license_category = 'License category is required';
     if (!form.license_expiry)          e.license_expiry   = 'License expiry date is required';
-    if (!form.contact.trim())          e.contact          = 'Contact is required';
+    if (!form.contact.trim())          e.contact          = 'Mobile number is required';
+    else if (!isIndianMobileNumber(form.contact)) e.contact = 'Use a valid Indian mobile number, e.g. +91 98765 43210';
     if (form.safety_score < 0 || form.safety_score > 100)
       e.safety_score = 'Safety score must be 0–100';
     setErrors(e);
@@ -93,18 +96,18 @@ export function DriverForm({ open, onClose, initial, onSubmit }: Props) {
     <SlideOver
       open={open}
       onClose={onClose}
-      title={isEdit ? 'Edit Driver' : 'Add Driver'}
-      subtitle={isEdit ? `Editing ${initial?.name}` : 'Register a new driver'}
+      title={isEdit ? 'Edit Professional Profile' : 'Add Gig Professional'}
+      subtitle={isEdit ? `Editing ${initial?.name}` : 'Create a verified work profile with a clear vehicle arrangement.'}
       footer={
         <>
           <Button variant="secondary" onClick={onClose} disabled={loading}>Cancel</Button>
           <Button form="driver-form" type="submit" loading={loading}>
-            {isEdit ? 'Save Changes' : 'Add Driver'}
+            {isEdit ? 'Save Profile' : 'Create Profile'}
           </Button>
         </>
       }
     >
-      <form id="driver-form" onSubmit={handleSubmit} className="space-y-5">
+      <form id="driver-form" onSubmit={handleSubmit} className="space-y-6">
         {serverError && (
           <div className="flex items-center gap-2 bg-red-50 border border-red-200 rounded-xl px-4 py-3">
             <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-red-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -113,6 +116,23 @@ export function DriverForm({ open, onClose, initial, onSubmit }: Props) {
             <p className="text-sm text-red-600">{serverError}</p>
           </div>
         )}
+
+        <div className="rounded-2xl border border-brand-100 bg-brand-50/60 p-4">
+          <p className="text-sm font-bold text-brand-950">How will this professional work?</p>
+          <p className="mt-1 text-xs leading-5 text-brand-700">This decides whether the person brings a personally owned vehicle or is matched to an organization vehicle.</p>
+          <div className="mt-3 grid grid-cols-2 gap-3">
+            {([
+              ['driver_only', 'Driver only', 'Uses an organization-assigned vehicle'],
+              ['owner_driver', 'Owner-driver', 'Brings a personal vehicle for eligible contracts'],
+            ] as const).map(([value, title, description]) => (
+              <button key={value} type="button" onClick={() => set('work_mode', value)}
+                className={`rounded-xl border p-3 text-left transition ${form.work_mode === value ? 'border-brand-500 bg-white shadow-sm ring-1 ring-brand-500' : 'border-brand-100 bg-white/60 hover:border-brand-300'}`}>
+                <p className="text-sm font-bold text-slate-800">{title}</p>
+                <p className="mt-1 text-[11px] leading-4 text-slate-500">{description}</p>
+              </button>
+            ))}
+          </div>
+        </div>
 
         <Input
           id="driver-name" label="Full Name" required
@@ -162,8 +182,11 @@ export function DriverForm({ open, onClose, initial, onSubmit }: Props) {
             id="contact" label="Contact" required
             value={form.contact}
             onChange={e => set('contact', e.target.value)}
+            onBlur={() => set('contact', formatIndianMobileNumber(form.contact))}
             error={errors.contact}
             placeholder="+91 98765 43210"
+            inputMode="tel"
+            hint="Indian mobile number; used only for operational contact."
           />
         </div>
 

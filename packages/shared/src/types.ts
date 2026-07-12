@@ -15,6 +15,7 @@ export interface Vehicle {
   acquisition_cost: number;
   status: VehicleStatus;
   region: string;
+  owner_driver_id?: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -32,6 +33,7 @@ export interface Driver {
   contact: string;
   safety_score: number;     // 0-100
   status: DriverStatus;
+  work_mode?: 'driver_only' | 'owner_driver';
   created_at: string;
   updated_at: string;
 }
@@ -128,6 +130,51 @@ export interface Profile {
   full_name: string;
   role: Role;
   region: string | null;
+}
+
+// ─── Trusted work marketplace ───────────────────────────────────────────────
+export type OrganizationTier = 'tier_1' | 'tier_2' | 'tier_3';
+export type OrganizationVerificationStatus = 'pending' | 'verified' | 'suspended';
+export type QualificationStatus = 'pending' | 'verified' | 'expired' | 'revoked';
+export type WorkerReportStatus = 'submitted' | 'under_review' | 'upheld' | 'dismissed' | 'appealed';
+
+export interface Organization {
+  id: string;
+  name: string;
+  tier: OrganizationTier;
+  verification_status: OrganizationVerificationStatus;
+  region: string;
+  industry: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface WorkerQualification {
+  id: string;
+  driver_id: string;
+  category: 'local_delivery' | 'light_cargo' | 'high_value_goods' | 'refrigerated_cargo' | 'long_haul' | 'truck_logistics';
+  status: QualificationStatus;
+  issuer: string;
+  issued_at: string | null;
+  expires_at: string | null;
+  evidence_url: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface WorkerReport {
+  id: string;
+  driver_id: string;
+  reporter_organization_id: string;
+  category: 'safety' | 'conduct' | 'cargo_handling' | 'attendance' | 'other';
+  description: string;
+  evidence_url: string | null;
+  reporter_tier_snapshot: OrganizationTier;
+  status: WorkerReportStatus;
+  resolution_note: string | null;
+  reviewed_at: string | null;
+  created_at: string;
+  updated_at: string;
 }
 
 // ─── Tier Thresholds ──────────────────────────────────────────────────────────

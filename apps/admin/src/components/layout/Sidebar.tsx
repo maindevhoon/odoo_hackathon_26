@@ -56,22 +56,10 @@ export function Sidebar() {
 
   return (
     <aside className="fixed inset-y-0 left-0 w-60 bg-brand-950 border-r border-white/5 flex flex-col z-30">
-      {/* Logo */}
-      <div className="flex items-center gap-3 px-5 py-5 border-b border-white/5">
-        <div className="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center flex-shrink-0">
-          <svg viewBox="0 0 48 48" fill="none" className="w-5 h-5" xmlns="http://www.w3.org/2000/svg">
-            <rect x="4" y="28" width="32" height="12" rx="3" fill="white" fillOpacity="0.9"/>
-            <rect x="8" y="20" width="20" height="10" rx="2" fill="white" fillOpacity="0.7"/>
-            <circle cx="12" cy="40" r="4" fill="white"/>
-            <circle cx="28" cy="40" r="4" fill="white"/>
-            <path d="M36 20 L44 20 L44 36 L36 36" stroke="white" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
-            <circle cx="40" cy="40" r="4" fill="white" fillOpacity="0.7"/>
-          </svg>
-        </div>
-        <div>
-          <p className="text-white font-bold text-sm leading-tight">TransitOps</p>
-          <p className="text-brand-400 text-xs">Admin Portal</p>
-        </div>
+      {/* Wordmark-free shell */}
+      <div className="px-5 py-5 border-b border-white/5">
+        <p className="text-white font-medium text-sm leading-tight">Operations console</p>
+        <p className="text-brand-400 text-xs mt-1">Workforce &amp; fleet</p>
       </div>
 
       {/* Nav */}
@@ -201,4 +189,3 @@ function TrophyIcon({ className }: { className?: string }) {
     </svg>
   );
 }
-

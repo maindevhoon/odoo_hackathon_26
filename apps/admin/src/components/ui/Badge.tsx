@@ -5,17 +5,17 @@ type Status = VehicleStatus | DriverStatus | TripStatus;
 
 const CONFIG: Record<string, { label: string; dot: string; bg: string; text: string }> = {
   // vehicle
-  available:  { label: 'Available',  dot: 'bg-emerald-400', bg: 'bg-emerald-50', text: 'text-emerald-700' },
-  on_trip:    { label: 'On Trip',    dot: 'bg-blue-400',    bg: 'bg-blue-50',    text: 'text-blue-700'    },
-  in_shop:    { label: 'In Shop',    dot: 'bg-amber-400',   bg: 'bg-amber-50',   text: 'text-amber-700'   },
-  retired:    { label: 'Retired',    dot: 'bg-gray-400',    bg: 'bg-gray-100',   text: 'text-gray-600'    },
+  available:  { label: 'Available',  dot: 'bg-brand-500', bg: 'bg-[#f4f4f4]', text: 'text-[#393C41]' },
+  on_trip:    { label: 'On Trip',    dot: 'bg-brand-500', bg: 'bg-[#f4f4f4]', text: 'text-[#393C41]' },
+  in_shop:    { label: 'In Shop',    dot: 'bg-[#8E8E8E]', bg: 'bg-[#f4f4f4]', text: 'text-[#393C41]' },
+  retired:    { label: 'Retired',    dot: 'bg-[#8E8E8E]', bg: 'bg-[#f4f4f4]', text: 'text-[#393C41]' },
   // driver
-  off_duty:   { label: 'Off Duty',   dot: 'bg-gray-400',    bg: 'bg-gray-100',   text: 'text-gray-600'    },
-  suspended:  { label: 'Suspended',  dot: 'bg-red-400',     bg: 'bg-red-50',     text: 'text-red-700'     },
+  off_duty:   { label: 'Off Duty',   dot: 'bg-[#8E8E8E]', bg: 'bg-[#f4f4f4]', text: 'text-[#393C41]' },
+  suspended:  { label: 'Suspended',  dot: 'bg-red-500',    bg: 'bg-red-50',    text: 'text-red-700' },
   // trip
-  draft:      { label: 'Draft',      dot: 'bg-gray-400',    bg: 'bg-gray-50',    text: 'text-gray-600'    },
-  dispatched: { label: 'Dispatched', dot: 'bg-blue-400',    bg: 'bg-blue-50',    text: 'text-blue-700'    },
-  completed:  { label: 'Completed',  dot: 'bg-emerald-400', bg: 'bg-emerald-50', text: 'text-emerald-700' },
+  draft:      { label: 'Draft',      dot: 'bg-[#8E8E8E]', bg: 'bg-[#f4f4f4]', text: 'text-[#393C41]' },
+  dispatched: { label: 'Dispatched', dot: 'bg-brand-500', bg: 'bg-[#f4f4f4]', text: 'text-[#393C41]' },
+  completed:  { label: 'Completed',  dot: 'bg-brand-500', bg: 'bg-[#f4f4f4]', text: 'text-[#393C41]' },
   cancelled:  { label: 'Cancelled',  dot: 'bg-red-400',     bg: 'bg-red-50',     text: 'text-red-600'     },
 };
 

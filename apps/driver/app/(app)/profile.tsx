@@ -52,6 +52,7 @@ export default function ProfileScreen() {
               </Text>
             </View>
 
+            <Text style={styles.passportEyebrow}>YOUR PROFESSIONAL PASSPORT</Text>
             <View style={[styles.tierCard, { borderColor: TIER_COLORS[tier] }]}>
               <Text style={[styles.tierLabel, { color: TIER_COLORS[tier] }]}>{tier.toUpperCase()}</Text>
               <Text style={styles.xpLabel}>{xp} XP</Text>
@@ -103,6 +104,7 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#0f172a' },
   header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 },
   greeting: { fontSize: 22, fontWeight: '800', color: '#fff' },
+  passportEyebrow: { color: '#60a5fa', fontSize: 11, fontWeight: '800', letterSpacing: 1, marginBottom: 8 },
   onlineTag: { fontSize: 12, fontWeight: '700' },
   tierCard: {
     backgroundColor: 'rgba(255,255,255,0.05)', borderRadius: 16, padding: 18, marginBottom: 16, borderWidth: 1,
