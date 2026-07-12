@@ -8,3 +8,6 @@ export { createSupabaseClient, getSupabaseClient } from './supabaseClient';
 export * from './services/vehicleService';
 export * from './services/driverService';
 export * from './services/tripService';
+export * from './services/maintenanceService';
+export * from './services/fuelService';
+export * from './services/expenseService';

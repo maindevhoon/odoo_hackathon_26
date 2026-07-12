@@ -8,6 +8,8 @@ import UnauthorizedPage from '@/pages/UnauthorizedPage';
 import VehiclesPage from '@/features/vehicles/VehiclesPage';
 import DriversPage from '@/features/drivers/DriversPage';
 import TripsPage from '@/features/trips/TripsPage';
+import MaintenancePage from '@/features/maintenance/MaintenancePage';
+import CostsPage from '@/features/costs/CostsPage';
 
 // Phase placeholders — replaced per phase
 const Placeholder = ({ name }: { name: string }) => (
@@ -41,7 +43,7 @@ export default function App() {
                 element={<ProtectedRoute allowedRoles={['fleet_manager', 'safety_officer']} />}
               >
                 <Route path="/drivers" element={<DriversPage />} />
-                <Route path="/maintenance" element={<Placeholder name="Maintenance Logs" />} />
+                <Route path="/maintenance" element={<MaintenancePage />} />
               </Route>
 
               {/* Fleet Manager only */}
@@ -54,7 +56,7 @@ export default function App() {
               <Route
                 element={<ProtectedRoute allowedRoles={['fleet_manager', 'financial_analyst']} />}
               >
-                <Route path="/fuel-expenses" element={<Placeholder name="Fuel & Expenses" />} />
+                <Route path="/fuel-expenses" element={<CostsPage />} />
                 <Route path="/reports" element={<Placeholder name="Reports & Analytics" />} />
               </Route>
 
