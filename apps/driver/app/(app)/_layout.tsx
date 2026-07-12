@@ -1,6 +1,28 @@
-import { Tabs } from 'expo-router';
+import { useEffect } from 'react';
+import { View, ActivityIndicator } from 'react-native';
+import { Tabs, router } from 'expo-router';
+import { DriverProvider } from '../../src/contexts/DriverContext';
+import { useAuth } from '../../src/contexts/AuthContext';
 
-export default function AppLayout() {
+function AppTabsWithGuard() {
+  const { user, loading } = useAuth();
+
+  useEffect(() => {
+    if (!loading && !user) {
+      router.replace('/(auth)/sign-in');
+    }
+  }, [user, loading]);
+
+  if (loading) {
+    return (
+      <View style={{ flex: 1, backgroundColor: '#172554', alignItems: 'center', justifyContent: 'center' }}>
+        <ActivityIndicator color="#60a5fa" size="large" />
+      </View>
+    );
+  }
+
+  if (!user) return null;
+
   return (
     <Tabs
       screenOptions={{
@@ -41,5 +63,13 @@ export default function AppLayout() {
         }}
       />
     </Tabs>
+  );
+}
+
+export default function AppLayout() {
+  return (
+    <DriverProvider>
+      <AppTabsWithGuard />
+    </DriverProvider>
   );
 }
