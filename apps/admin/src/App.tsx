@@ -7,6 +7,7 @@ import DashboardPage from '@/pages/DashboardPage';
 import UnauthorizedPage from '@/pages/UnauthorizedPage';
 import VehiclesPage from '@/features/vehicles/VehiclesPage';
 import DriversPage from '@/features/drivers/DriversPage';
+import TripsPage from '@/features/trips/TripsPage';
 
 // Phase placeholders — replaced per phase
 const Placeholder = ({ name }: { name: string }) => (
@@ -58,7 +59,7 @@ export default function App() {
               </Route>
 
               {/* All roles can view trips */}
-              <Route path="/trips" element={<Placeholder name="Trip Management" />} />
+              <Route path="/trips" element={<TripsPage />} />
             </Route>
           </Route>
 

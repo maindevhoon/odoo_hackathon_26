@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils';
-import type { VehicleStatus, DriverStatus } from '@transitops/shared';
+import type { VehicleStatus, DriverStatus, TripStatus } from '@transitops/shared';
 
-type Status = VehicleStatus | DriverStatus;
+type Status = VehicleStatus | DriverStatus | TripStatus;
 
 const CONFIG: Record<string, { label: string; dot: string; bg: string; text: string }> = {
   // vehicle
@@ -12,6 +12,11 @@ const CONFIG: Record<string, { label: string; dot: string; bg: string; text: str
   // driver
   off_duty:   { label: 'Off Duty',   dot: 'bg-gray-400',    bg: 'bg-gray-100',   text: 'text-gray-600'    },
   suspended:  { label: 'Suspended',  dot: 'bg-red-400',     bg: 'bg-red-50',     text: 'text-red-700'     },
+  // trip
+  draft:      { label: 'Draft',      dot: 'bg-gray-400',    bg: 'bg-gray-50',    text: 'text-gray-600'    },
+  dispatched: { label: 'Dispatched', dot: 'bg-blue-400',    bg: 'bg-blue-50',    text: 'text-blue-700'    },
+  completed:  { label: 'Completed',  dot: 'bg-emerald-400', bg: 'bg-emerald-50', text: 'text-emerald-700' },
+  cancelled:  { label: 'Cancelled',  dot: 'bg-red-400',     bg: 'bg-red-50',     text: 'text-red-600'     },
 };
 
 interface Props { status: Status; className?: string }
