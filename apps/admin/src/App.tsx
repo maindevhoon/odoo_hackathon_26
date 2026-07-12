@@ -11,19 +11,10 @@ import TripsPage from '@/features/trips/TripsPage';
 import MaintenancePage from '@/features/maintenance/MaintenancePage';
 import CostsPage from '@/features/costs/CostsPage';
 import ReportsPage from '@/features/reports/ReportsPage';
+import ContractsPage from '@/features/contracts/ContractsPage';
+import LeaderboardPage from '@/features/leaderboard/LeaderboardPage';
 
-// Phase placeholders — replaced per phase
-const Placeholder = ({ name }: { name: string }) => (
-  <div className="p-8">
-    <div className="bg-white rounded-2xl border border-gray-100 p-12 text-center shadow-sm">
-      <div className="w-12 h-12 rounded-xl bg-brand-50 flex items-center justify-center mx-auto mb-4">
-        <span className="text-2xl">🚧</span>
-      </div>
-      <h2 className="text-lg font-semibold text-gray-800 mb-2">{name}</h2>
-      <p className="text-gray-400 text-sm">Coming in the next phase</p>
-    </div>
-  </div>
-);
+
 
 export default function App() {
   return (
@@ -50,7 +41,7 @@ export default function App() {
               {/* Fleet Manager only */}
               <Route element={<ProtectedRoute allowedRoles={['fleet_manager']} />}>
                 <Route path="/vehicles" element={<VehiclesPage />} />
-                <Route path="/contracts" element={<Placeholder name="Contracts" />} />
+                <Route path="/contracts" element={<ContractsPage />} />
               </Route>
 
               {/* Fleet Manager + Financial Analyst */}
@@ -61,8 +52,9 @@ export default function App() {
                 <Route path="/reports" element={<ReportsPage />} />
               </Route>
 
-              {/* All roles can view trips */}
+              {/* All roles can view trips + leaderboard */}
               <Route path="/trips" element={<TripsPage />} />
+              <Route path="/leaderboard" element={<LeaderboardPage />} />
             </Route>
           </Route>
 
